@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redux React</title>
+
+  <!-- React script -->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- Redux -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.1/react-redux.min.js"></script>
+  <!-- React Motion -->
+  <script src="https://unpkg.com/react-motion/build/react-motion.js"></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <!-- Bootstrap 5 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js"
+    integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d"
+    crossorigin="anonymous"></script>
+
+  <style>
+    ul>li {
+      padding: 10px 0;
+    }
+  </style>
+
+  <style>
+    .todoitem-enter {
+      opacity: 0;
+    }
+
+    .todoitem-enter-active {
+      opacity: 1;
+      transition: opacity 300ms ease-in;
+    }
+
+    .todoitem-exit {
+      opacity: 1;
+    }
+
+    .todoitem-exit-active {
+      opacity: 0;
+      transition: opacity 300ms ease-in;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="container"></div>
+
+  <script>
+    let myNumber = 12;
+    console.log(myNumber);
+  </script>
+
+  <script type="text/babel">
+    const { Component, useState, useEffect } = React;
+    const { Provider, connect } = ReactRedux;
+
+    // Helper function
+    const getCurrentDate = () => {
+      let date = new Date();
+      return date.toLocaleString();
+    };
+
+    // Helper function
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    }
+
+    let count = (function () {
+      try {
+        const data = localStorage.getItem('lastIdCount');
+        if (data !== 'undefined' && data !== 'null') {
+          return data;
+        }
+        return 0;
+      }
+      catch (e) {
+        return 0;
+      }
+    })();
+
+    // id counter
+    const getId = () => {
+      return count++;
+    };
+  </script>
+  <script src="./redux.js" type="text/babel"></script>
+
+  <!-- Components -->
+  <script src="./components/App.jsx" type="text/babel"></script>
+  <script src="./components/Todo.jsx" type="text/babel"></script>
+  <script src="./components/TodoArchived.jsx" type="text/babel"></script>
+  <script src="./components/TodoForm.jsx" type="text/babel"></script>
+  <script src="./components/TodoItem.jsx" type="text/babel"></script>
+  <script src="./components/TodoItemTitle.jsx" type="text/babel"></script>
+  <script src="./components/TodoList.jsx" type="text/babel"></script>
+  <script src="./components/toast/Toast.jsx" type="text/babel"></script>
+
+  <!-- Render -->
+  <script type="text/babel">
+    ReactDOM.render(
+      <ReactRedux.Provider store={store}>
+        <App />
+      </ReactRedux.Provider>,
+      document.getElementById('app')
+    );
+  </script>
+</body>
+
+</html>
